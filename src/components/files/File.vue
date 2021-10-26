@@ -34,7 +34,7 @@ export default ({
       default: 0,
     },
   },
-  inject: ['oneLevelIndentSize'],
+  inject: ['oneLevelIndentSize',['fileSelectHandler']],
   data() {
     return {
       isSelected: false,
@@ -57,7 +57,10 @@ export default ({
   },
   methods: {
     onSelect() {
-      this.isSelected = !this.isSelected;
+      if(!this.isSelected) {
+        this.isSelected = true;
+        this.fileSelectHandler(this);
+      }
     },
   },
 });

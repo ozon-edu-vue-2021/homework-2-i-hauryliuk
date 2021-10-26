@@ -2,25 +2,23 @@
   <div id="app">
     <h1>{{heading}}</h1>
     <section class="container">
-      <directory :directory="dirData" :nestingLevel="1"></directory>
+      <file-structure></file-structure>
     </section>
   </div>
 </template>
 
 <script>
-import Directory from './components/directories/Directory.vue';
-import dirData from '../public/static/node_modules.json';
+import FileStructure from './components/file-structure/FileStructure.vue';
 
 export default {
   name: 'App',
   data() {
     return {
       heading: 'Directory component',
-      dirData,
     };
   },
   components: {
-    Directory,
+    FileStructure,
   },
 }
 </script>
