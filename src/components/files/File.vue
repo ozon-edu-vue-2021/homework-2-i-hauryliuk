@@ -8,7 +8,7 @@
     :style="indentRule"
   >
     <span class="file__icon">
-      <base-icon width="100%" height="100%" :iconType="file.type">
+      <base-icon :iconType="file.type">
         <link-icon v-if="file.type === 'link'"></link-icon>
         <file-icon v-else></file-icon>
       </base-icon>

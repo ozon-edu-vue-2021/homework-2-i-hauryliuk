@@ -21,11 +21,11 @@ export default {
     },
     width: {
       type: [Number, String],
-      default: 24,
+      default: '100%',
     },
     height: {
       type: [Number, String],
-      default: 24,
+      default: '100%',
     },
     iconColor: {
       type: String,

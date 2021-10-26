@@ -1,5 +1,5 @@
 <template>
-  <div class="file-structure" @file-select="fileSelectHandler">
+  <div class="file-structure">
     <directory :directory="dirData" :nestingLevel="1"></directory>
   </div>
 </template>

@@ -9,7 +9,7 @@
       :style="indentRule"
     >
       <span class="directory__icon">
-          <base-icon width="100%" height="100%" :iconType="directory.type">
+          <base-icon :iconType="directory.type">
             <arrow-up-icon v-if="isExpanded"></arrow-up-icon>
             <dir-icon v-else></dir-icon>
           </base-icon>
