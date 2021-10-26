@@ -34,7 +34,7 @@ export default ({
       default: 0,
     },
   },
-  inject: ['oneLevelIndentSize',['fileSelectHandler']],
+  inject: ['indentParams', ['fileSelectHandler']],
   data() {
     return {
       isSelected: false,
@@ -47,7 +47,9 @@ export default ({
   },
   computed: {
     indentSize() {
-      return this.oneLevelIndentSize * this.nestingLevel;
+      return this.nestingLevel > this.indentParams.indentLevelLimit
+        ? this.indentParams.oneLevelIndentSize * this.indentParams.indentLevelLimit
+        : this.indentParams.oneLevelIndentSize * this.nestingLevel;
     },
     indentRule() {
       return {

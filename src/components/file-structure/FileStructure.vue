@@ -14,6 +14,10 @@ export default {
     return {
       dirData: data,
       selectedFile: null,
+      indentParams: {
+        oneLevelIndentSize: 20,
+        indentLevelLimit: 3,
+      },
     };
   },
   components: {
@@ -22,6 +26,7 @@ export default {
   provide() {
     return {
       fileSelectHandler: this.fileSelectHandler,
+      indentParams: this.indentParams,
     };
   },
   methods: {

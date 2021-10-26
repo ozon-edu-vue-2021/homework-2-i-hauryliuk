@@ -48,7 +48,6 @@ export default {
     return {
       isExpanded: false,
       isViewed: false,
-      oneLevelIndentSize: 20,
     };
   },
   props: {
@@ -67,17 +66,15 @@ export default {
     DirIcon,
     ArrowUpIcon,
   },
-  provide() {
-    return {
-      oneLevelIndentSize: this.oneLevelIndentSize,
-    };
-  },
+  inject: ['indentParams'],
   computed: {
     nextLevel() {
       return this.nestingLevel + 1;
     },
     indentSize() {
-      return this.oneLevelIndentSize * this.nestingLevel;
+      return this.nestingLevel > this.indentParams.indentLevelLimit
+        ? this.indentParams.oneLevelIndentSize * this.indentParams.indentLevelLimit
+        : this.indentParams.oneLevelIndentSize * this.nestingLevel;
     },
     indentRule() {
       return {
