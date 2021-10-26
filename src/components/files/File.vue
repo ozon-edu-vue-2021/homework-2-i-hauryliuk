@@ -4,8 +4,8 @@
     :class="{
       file_selected: isSelected,
     }"
-    :style="cssStyles"
     @click="onSelect"
+    :style="indentRule"
   >
     <span class="file__icon">
       <base-icon width="100%" height="100%" :iconType="file.type">
@@ -33,11 +33,8 @@ export default ({
       type: Number,
       default: 0,
     },
-    oneLevelIndentSize: {
-      type: Number,
-      default: 20,
-    },
   },
+  inject: ['oneLevelIndentSize'],
   data() {
     return {
       isSelected: false,
@@ -52,7 +49,7 @@ export default ({
     indentSize() {
       return this.oneLevelIndentSize * this.nestingLevel;
     },
-    cssStyles() {
+    indentRule() {
       return {
         'padding-left': `${this.indentSize}px`,
       };
@@ -70,6 +67,7 @@ export default ({
 .file {
   position: relative;
   padding: 2px;
+  border-left: 4px solid transparent;
   user-select: none;
   opacity: 0.7;
 }
@@ -79,6 +77,7 @@ export default ({
   cursor: pointer;
 }
 .file_selected {
+  border-left-color: currentColor;
   background-color: rgb(221, 221, 221);
   opacity: 1;
 }

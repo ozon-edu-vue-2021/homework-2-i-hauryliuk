@@ -1,18 +1,27 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>{{heading}}</h1>
+    <section class="container">
+      <directory :directory="dirData" :nestingLevel="1"></directory>
+    </section>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Directory from './components/directories/Directory.vue';
+import dirData from '../public/static/node_modules.json';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      heading: 'Directory component',
+      dirData,
+    };
+  },
   components: {
-    HelloWorld
-  }
+    Directory,
+  },
 }
 </script>
 
@@ -21,7 +30,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
