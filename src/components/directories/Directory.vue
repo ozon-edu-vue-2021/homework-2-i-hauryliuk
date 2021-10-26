@@ -24,11 +24,15 @@
             :directory="entry"
             :nestingLevel="nextLevel"
             :key="`${entry.name}-${idx}`"
+            :pathTo="pathTo.length
+              ? `${pathTo}/${directory.name}`
+              : `${directory.name}`"
           ></directory>
           <file
             v-else :file="entry"
             :key="`${entry.name}-${idx}`"
             :nestingLevel="nextLevel"
+            :pathTo="`${pathTo}/${directory.name}`"
           ></file>
         </template>
       </template>
@@ -58,6 +62,10 @@ export default {
     nestingLevel: {
       type: Number,
       default: 0,
+    },
+    pathTo: {
+      type: String,
+      required: true,
     },
   },
   components: {

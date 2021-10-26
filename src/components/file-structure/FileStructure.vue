@@ -1,6 +1,7 @@
 <template>
   <div class="file-structure">
-    <directory :directory="dirData" :nestingLevel="1"></directory>
+    <div class="path">{{selectedFile ? selectedFile.pathToFile : null}}</div>
+    <directory :directory="dirData" :nestingLevel="1" :pathTo="''"></directory>
   </div>
 </template>
 
@@ -16,7 +17,7 @@ export default {
       selectedFile: null,
       indentParams: {
         oneLevelIndentSize: 20,
-        indentLevelLimit: 3,
+        indentLevelLimit: 5,
       },
     };
   },
@@ -41,5 +42,9 @@ export default {
 </script>
 
 <style scoped>
-
+.path {
+  min-height: 1.2em;
+  margin-bottom: 20px;
+  font-size: 0.8em;
+}
 </style>

@@ -33,6 +33,10 @@ export default ({
       type: Number,
       default: 0,
     },
+    pathTo: {
+      type: String,
+      required: true,
+    },
   },
   inject: ['indentParams', ['fileSelectHandler']],
   data() {
@@ -55,6 +59,9 @@ export default ({
       return {
         'padding-left': `${this.indentSize}px`,
       };
+    },
+    pathToFile() {
+      return `${this.pathTo}/${this.file.name}`;
     },
   },
   methods: {
