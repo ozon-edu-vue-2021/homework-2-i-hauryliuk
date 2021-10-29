@@ -1,7 +1,7 @@
 <template>
   <div class="file-structure">
     <div class="path">{{selectedFile ? selectedFile.pathToFile : null}}</div>
-    <directory :directory="dirData" :nestingLevel="1" :pathTo="''"></directory>
+    <directory :directory="dirData" :nestingLevel="1" :pathTo="''" ref="dir"></directory>
   </div>
 </template>
 
@@ -37,6 +37,9 @@ export default {
       }
       this.selectedFile = file;
     }
+  },
+  mounted() {
+    this.$refs.dir.$refs['kb-navigabable'].focus();
   }
 };
 </script>

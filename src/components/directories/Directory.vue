@@ -5,8 +5,13 @@
       :class="{
         directory__heading_expanded: isExpanded,
       }"
-      @click="toggleContentVisibility"
       :style="indentRule"
+      tabindex="0"
+      ref='kb-navigabable'
+      @click="toggleContentVisibility"
+      @keyup.enter="handleEnterKeystroke"
+      @keydown.prevent.up="handleUpArrowKeystroke"
+      @keydown.prevent.down="handleDownArrowKeystroke"
     >
       <span class="directory__icon">
           <base-icon :iconType="directory.type">
@@ -96,6 +101,54 @@ export default {
         this.isViewed = true;
       }
       this.isExpanded = !this.isExpanded;
+    },
+    handleEnterKeystroke(event) {
+      event.target.click();
+    },
+    getNavigabable(children) {
+      return children.filter((item) => item.$refs['kb-navigabable']);
+    },
+    handleUpArrowKeystroke() {
+      const navigabableSiblings = this.getNavigabable(this.$parent.$children);
+      const thisIdx = navigabableSiblings.findIndex((item) => item === this);
+      if (thisIdx > 0) {
+        if (navigabableSiblings[thisIdx - 1].isExpanded) {
+          const prevSiblingChildren = this.getNavigabable(navigabableSiblings[thisIdx - 1].$children);
+          let lastChild = prevSiblingChildren[prevSiblingChildren.length - 1];
+          while (lastChild.isExpanded) {
+            let lastChildChildren = this.getNavigabable(lastChild.$children)
+            lastChild = lastChildChildren[lastChildChildren.length - 1];
+          }
+          lastChild.$refs['kb-navigabable'].focus();
+        } else {
+          navigabableSiblings[thisIdx - 1].$refs['kb-navigabable'].focus();
+        }
+      } else if (this.$parent.$refs['kb-navigabable']) {
+        this.$parent.$refs['kb-navigabable'].focus();
+      }
+    },
+    handleDownArrowKeystroke() {
+      if (this.isExpanded) {
+        const navigabableChildren = this.getNavigabable(this.$children);
+        navigabableChildren[0].$refs['kb-navigabable'].focus();
+      }
+      else {
+        const navigabableSibling = this.getNavigabable(this.$parent.$children);
+        const thisIdx = navigabableSibling.findIndex((item) => item === this);
+        if (thisIdx < navigabableSibling.length - 1) {
+          navigabableSibling[thisIdx + 1].$refs['kb-navigabable'].focus();
+        } else if (this.$parent.$refs['kb-navigabable']) {
+          let parent = this.$parent;
+          let parentNavigabableSiblings = this.getNavigabable(parent.$parent.$children)
+          let parentIdx = parentNavigabableSiblings.findIndex((item) => item === parent);
+          while (parentIdx === parentNavigabableSiblings.length - 1 && parent.$refs['kb-navigabable']) {
+            parent = parent.$parent;
+            parentNavigabableSiblings = this.getNavigabable(parent.$parent.$children)
+            parentIdx = parentNavigabableSiblings.findIndex((item) => item === parent);
+          }
+          parentNavigabableSiblings[parentIdx + 1]?.$refs['kb-navigabable'].focus();
+        }
+      }
     },
   },
 };
